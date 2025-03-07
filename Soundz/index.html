@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>SoundZ</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">SoundZ</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="library.html">Library</a></li>
+            <li><a href="#">Playlists</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="login-button">Login</button>
+            <hr>
+            <button class="signup-button">Sign Up</button>
+        </div>
+    </nav>
+    <section class="songs-suggestions">
+        <h1 class="songs-suggestions-text">Let's find your next favorite song of the day...</h1>
+    </section>
+    <hr>
+    <div class="library-container">
+        <div class="library-slider">
+            <div class="song-card-slider">
+                <div class="slider-content">
+                    <img src="all i seek.jpg" alt="slider Song 1">
+                    <div class="song-details">
+                        <h2>All I Seek</h2>
+                        <p>Manana</p>
+                    </div>
+                </div>
+            </div>
+            <div class="song-card-slider">
+                <div class="slider-content">
+                    <img src="Music Singer Unsplash (1).jpg" alt="slider Song 2">
+                    <div class="song-details">
+                        <h2>Song 2</h2>
+                        <p>Artist 2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="song-card-slider">
+                <div class="slider-content">
+                    <img src="Woman with Guitar.jpg" alt="slider Song 3">
+                    <div class="song-details">
+                        <h2>Song 3</h2>
+                        <p>Artist 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-dots"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.library-slider');
+            const slides = document.querySelectorAll('.song-card-slider');
+            const dotsContainer = document.querySelector('.slider-dots');
+            let currentSlide = 0;
+
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            function updateDots() {
+                document.querySelectorAll('.dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            function goToSlide(index) {
+                currentSlide = index;
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                updateDots();
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                goToSlide(currentSlide);
+            }
+
+            // Auto-advance slides every 5 seconds
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+<footer>
+    <p>Copyright &copy; 2025 Soundz</p>
+</footer>
+</html>
